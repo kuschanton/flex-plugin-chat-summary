@@ -1,0 +1,33 @@
+POST http://localhost:3000/get-timeline
+Content-Type: application/json
+
+{
+  "customer": "+49123456789",
+  "token": "123"
+}
+
+###
+POST http://localhost:3000/add-timeline-entry
+Content-Type: application/json
+
+{
+  "customer": "+49000123123",
+  "channel": "whatsapp",
+  "summary": "Some summary 3",
+  "token": "123"
+}
+
+###
+
+POST http://localhost:3000/get-summary
+Content-Type: application/json
+
+{
+  "agentName": "akushch",
+  "customerName": "whatsapp:+4917697868644",
+  "conversationSid": "CH8053f897c58f4fd2be46ce188dbbf5bb",
+  "token": "123"
+}
+
+###
+
