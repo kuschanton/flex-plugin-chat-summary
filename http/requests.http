@@ -1,3 +1,14 @@
+POST  http://localhost:3000/add-task-attribute
+Content-Type: application/json
+
+{
+  "token": "123",
+  "taskSid": "WT4f73cf81fd7afb0dc7b7335a6bb32e02",
+  "attributeKey": "summary",
+  "attributeValue": "Some other summary here"
+}
+
+###
 POST http://localhost:3000/get-timeline
 Content-Type: application/json
 
@@ -23,7 +34,6 @@ POST http://localhost:3000/get-summary
 Content-Type: application/json
 
 {
-  "agentName": "akushch",
   "customerName": "whatsapp:+4917697868644",
   "conversationSid": "CH8053f897c58f4fd2be46ce188dbbf5bb",
   "token": "123"

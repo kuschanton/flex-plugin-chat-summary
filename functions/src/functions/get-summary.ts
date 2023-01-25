@@ -20,7 +20,6 @@ type Env = {
 }
 
 type Request = {
-  agentName: string,
   customerName: string,
   conversationSid: string,
   token: string
@@ -63,17 +62,15 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
 }
 
 const buildNewMessage = (event: Request, message: MessageInstance) =>
-  getAuthorName(event.agentName, event.customerName, message) +
+  getAuthorName(event.customerName, message) +
   message.body +
   '\n'
 
-const getAuthorName = (agentName: string, customerName: string, message: MessageInstance) => {
+const getAuthorName = (customerName: string, message: MessageInstance) => {
   switch (message.author) {
-    case agentName:
-      return '[Agent]: '
     case customerName:
       return '[Customer]: '
     default:
-      return '[Unknown author]: '
+      return '[Agent]: '
   }
 }
