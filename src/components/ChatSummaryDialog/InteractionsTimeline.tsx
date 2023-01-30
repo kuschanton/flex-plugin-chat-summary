@@ -99,14 +99,14 @@ const ChannelIcon = (props: { channel: string }) => {
   }
 }
 
-const Loading = () => <Box top='50%' left='50%' position='fixed'>
+const Loading = () => <Box top='50%' left='50%' position='relative'>
   {/*<Spinner decorative={false} title="Loading" size="sizeIcon80" />*/}
   <Text as='span' fontStyle='italic'>
     Loading
   </Text>
 </Box>
 
-const EmptyTimeline = () => <Box top='50%' left='50%' position='fixed'>
+const EmptyTimeline = () => <Box top='50%' left='50%' position='relative'>
   <Text as='span' fontStyle='italic'>
     No results found
   </Text>
