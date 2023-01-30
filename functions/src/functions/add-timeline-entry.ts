@@ -33,7 +33,7 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
 ) {
 
   try {
-    //await validateToken(event, context)
+    await validateToken(event, context)
   } catch (e) {
     return ohNoCatch(e, callback)
   }

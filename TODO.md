@@ -1,7 +1,0 @@
- - [x] Convert to a TaskCanvas component
- - [x] Update add-task-attribute function
- - [x] Show on wrapup
- - [x] Disable on submit
- - [ ] Write / get timeline Api code
- - [ ] Write timeline item to sync on submit
- - [ ] Timeline component in the CRM page

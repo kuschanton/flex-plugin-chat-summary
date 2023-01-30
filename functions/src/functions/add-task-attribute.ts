@@ -18,7 +18,9 @@ type Request = {
 }
 
 type Env = {
-  TWILIO_WORKSPACE_SID: string
+  ACCOUNT_SID: string
+  AUTH_TOKEN: string
+  TASKROUTER_WORKSPACE_SID: string
 }
 
 export const handler: ServerlessFunctionSignature<Env, Request> = async function (
@@ -27,7 +29,7 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
   callback: ServerlessCallback,
 ) {
   try {
-    // await validateToken(event, context)
+    await validateToken(event, context)
 
     // parse data form the incoming http request
     const taskSid = event.taskSid
@@ -36,10 +38,10 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
 
     // retrieve attributes of the original task
     let task = await context.getTwilioClient().taskrouter
-      .workspaces(context.TWILIO_WORKSPACE_SID)
+      .workspaces(context.TASKROUTER_WORKSPACE_SID)
       .tasks(taskSid)
       .fetch()
-    console.log(task)
+
     let newAttributes = JSON.parse(task.attributes)
 
     // Will blindly override the attribute, if it is an object and you want to do deep merge
@@ -50,7 +52,7 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
 
     // update task
     await context.getTwilioClient().taskrouter
-      .workspaces(context.TWILIO_WORKSPACE_SID)
+      .workspaces(context.TASKROUTER_WORKSPACE_SID)
       .tasks(taskSid)
       .update({
         attributes: JSON.stringify(newAttributes),

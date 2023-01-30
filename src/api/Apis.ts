@@ -1,23 +1,48 @@
 import * as Flex from '@twilio/flex-ui'
 import {Manager} from '@twilio/flex-ui'
 
-export const apiGetTimeline = async (): Promise<string> => {
+export type TimelineEntry = {
+  date: Date,
+  channel: string,
+  summary: string
+}
+
+export type Timeline = {
+  entries: TimelineEntry[]
+}
+
+export const apiGetTimeline = async (customer: string): Promise<Timeline> => {
   try {
-    return Promise.resolve('')
+    return <Timeline>await request('/get-timeline', {customer: customer})
   } catch (e: any) {
     console.log(e)
     Flex.Notifications.showNotification('agentTimelineError', {msg: `Error getting events ${e.message}`})
-    return Promise.resolve('')
+    return Promise.resolve({entries: []})
   }
 }
 
-export const apiWriteTimeline = async (): Promise<string> => {
+type AddTimelineEntryRequest = {
+  customer: string,
+  channel: string,
+  summary: string,
+}
+
+export const apiWriteTimeline = async (
+  customer: string,
+  channel: string,
+  summary: string,
+): Promise<void> => {
   try {
-    return Promise.resolve('')
+    const requestParams: AddTimelineEntryRequest = {
+      customer: customer,
+      channel: channel,
+      summary: summary,
+    }
+    await request('/add-timeline-entry', requestParams)
   } catch (e: any) {
     console.log(e)
     Flex.Notifications.showNotification('agentTimelineError', {msg: `Error getting events ${e.message}`})
-    return Promise.resolve('')
+    return Promise.resolve()
   }
 }
 

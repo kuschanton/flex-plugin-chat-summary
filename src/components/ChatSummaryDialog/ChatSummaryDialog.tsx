@@ -1,12 +1,12 @@
 import React from 'react'
-
 import {Box, Button, Flex, TextArea} from '@twilio-paste/core'
 import {withTaskContext} from '@twilio/flex-ui'
-import {apiAddSummaryToTask, apiGetSummary} from '../../api/Apis'
+import {apiAddSummaryToTask, apiGetSummary, apiWriteTimeline} from '../../api/Apis'
 import {Theme} from '@twilio-paste/core/theme'
-import {useSelector, useDispatch} from 'react-redux'
+// @ts-ignore
+import {useDispatch, useSelector} from 'react-redux'
 import {actions, AppState} from '../../states'
-import {ComponentState, setEditing, State} from '../../states/ChatSummaryState'
+import {ComponentState, State} from '../../states/ChatSummaryState'
 
 export const ChatSummaryDialog = (
   props: {
@@ -25,12 +25,7 @@ export const ChatSummaryDialog = (
     },
   )
 
-  console.log('@@@rendering', props.task.sid, props.task.attributes.summary)
-  console.log('@@@stateForSelectedTask', stateForSelectedTask)
-
-
   React.useEffect(() => {
-      console.log('@@@effect', stateForSelectedTask)
       if (!stateForSelectedTask) {
         dispatch(actions.chatSummary.setFetching(taskSid))
         apiGetSummary(props.task.attributes.customerName, props.task.attributes.conversationSid)
@@ -48,15 +43,6 @@ export const ChatSummaryDialog = (
     return null
   }
 
-  // // const [isSubmitted, setIsSubmitted] = React.useState(false)
-  // // const [fetchingSummary, setFetchingSummary] = React.useState(true)
-  // const [componentState, setComponentState] = React.useState(ComponentState.FETCHING)
-  // const initialFormData = Object.freeze({
-  //   summary: 'Summary is being processed, hold on...',
-  // })
-  // const [formData, updateFormData] = React.useState(initialFormData)
-  // console.log('@@@formData', formData)
-
   const handleChange = (e: any) =>
     dispatch(actions.chatSummary.setEditing({taskSid, summary: e.target.value}))
 
@@ -71,7 +57,13 @@ export const ChatSummaryDialog = (
         console.log('Error updating task', err)
         dispatch(actions.chatSummary.setEditing({taskSid, summary: stateForSelectedTask.summary}))
       })
-
+    apiWriteTimeline(props.task.attributes.customers.phone, props.task.attributes.channelType, stateForSelectedTask.summary)
+      .then(_ => {
+        console.log('Successfully updated timeline ', props.task.sid)
+      })
+      .catch(err => {
+        console.log('Error updating timeline', err)
+      })
   }
 
   return (
@@ -111,7 +103,11 @@ type Task = {
 type TaskAttributes = {
   conversationSid: string,
   customerName: string,
-  summary?: string
+  summary?: string,
+  channelType: string
+  customers: {
+    phone: string
+  }
 }
 
 export default withTaskContext(ChatSummaryDialog)

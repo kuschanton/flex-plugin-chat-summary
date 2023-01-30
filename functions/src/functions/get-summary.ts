@@ -31,7 +31,7 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
   callback: ServerlessCallback,
 ) {
   try {
-    // await validateToken(event, context)
+    await validateToken(event, context)
 
     const messages = await context.getTwilioClient()
       .conversations
@@ -43,8 +43,6 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
       (acc, next) => acc + buildNewMessage(event, next),
       '',
     )
-
-    console.log(transcript)
 
     const configuration = new Configuration({apiKey: context.OPENAI_API_KEY})
     const openai = new OpenAIApi(configuration)

@@ -3,8 +3,9 @@ import * as Flex from '@twilio/flex-ui'
 import {FlexPlugin} from '@twilio/flex-plugin'
 import {enableMapSet} from 'immer'
 
-import { namespace, reducers } from './states'
+import {namespace, reducers} from './states'
 import ChatSummaryDialog from './components/ChatSummaryDialog/ChatSummaryDialog'
+import InteractionTimeline from './components/ChatSummaryDialog/InteractionsTimeline'
 
 const PLUGIN_NAME = 'ContactSummaryPlugin'
 
@@ -23,26 +24,27 @@ export default class ContactSummaryPlugin extends FlexPlugin {
 
     enableMapSet()
 
-    console.log('@@@init1')
+    manager.store.addReducer?.(namespace, reducers)
 
-    manager.store.addReducer?.(namespace, reducers);
-
-    console.log('@@@init2')
-
-    const options: Flex.ContentFragmentProps = {
+    const chatSummaryOptions: Flex.ContentFragmentProps = {
       sortOrder: 0,
-      if: (props) => props.task.status === "wrapping"
-    };
+      if: (props) => props.task.status === 'wrapping',
+    }
 
     flex.TaskCanvas
       .Content
-      .add(<ChatSummaryDialog key="AddSummaryOnWrapUpPlugin-component" />, options);
+      .add(<ChatSummaryDialog key='AddSummaryOnWrapUpPlugin-component'/>, chatSummaryOptions)
 
-    console.log('@@@init3')
+    const timelineOptions: Flex.ContentFragmentProps = {
+      sortOrder: 0,
+      if: (props) => !!props.task,
+    }
+
+    flex.CRMContainer.Content.replace(
+      <InteractionTimeline key='InteractionTimeline-component'/>, timelineOptions,
+    )
 
     registerAlerts(flex, manager)
-
-    console.log('@@@init4')
   }
 }
 
