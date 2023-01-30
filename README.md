@@ -21,6 +21,8 @@ This Plugin uses following Twilio Products. It is easy to have it running quickl
 
 To generate the summary plugin uses [OpenAI GPT3 chat SDK](https://openai.com/api/).
 
+![Diagram](images/chat_summary_diagram.png)
+
 ## Oh, before installing it:
 
 You need to enable [Flex UI 2.0](https://www.twilio.com/changelog/flex-ui-20-is-now-in-public-beta), the newest version of Flex!
