@@ -15,7 +15,7 @@ export const ChatSummaryDialog = (
 ) => {
 
   const dispatch = useDispatch()
-  const taskSid = props.task.sid
+  const taskSid = props.task.taskSid
 
   const stateForSelectedTask: ComponentState | undefined = useSelector(
     (state: AppState) => {
@@ -48,9 +48,9 @@ export const ChatSummaryDialog = (
 
   const handleSubmit = () => {
     dispatch(actions.chatSummary.setSubmitting({taskSid}))
-    apiAddSummaryToTask(props.task.sid, stateForSelectedTask.summary)
+    apiAddSummaryToTask(props.task.taskSid, stateForSelectedTask.summary)
       .then(_ => {
-        console.log('Successfully updated task ', props.task.sid)
+        console.log('Successfully updated task ', props.task.taskSid)
         dispatch(actions.chatSummary.setSubmitted({taskSid}))
       })
       .catch(err => {
@@ -59,7 +59,7 @@ export const ChatSummaryDialog = (
       })
     apiWriteTimeline(props.task.attributes.customers.phone, props.task.attributes.channelType, stateForSelectedTask.summary)
       .then(_ => {
-        console.log('Successfully updated timeline ', props.task.sid)
+        console.log('Successfully updated timeline ', props.task.taskSid)
       })
       .catch(err => {
         console.log('Error updating timeline', err)
@@ -97,7 +97,7 @@ export const ChatSummaryDialog = (
 
 type Task = {
   attributes: TaskAttributes,
-  sid: string
+  taskSid: string
 }
 
 type TaskAttributes = {

@@ -30,6 +30,9 @@ export const handler: ServerlessFunctionSignature<Env, Request> = async function
   event: Request,
   callback: ServerlessCallback,
 ) {
+
+  console.log(event)
+
   try {
     await validateToken(event, context)
 

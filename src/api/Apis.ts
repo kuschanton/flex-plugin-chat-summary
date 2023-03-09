@@ -59,7 +59,7 @@ export const apiAddSummaryToTask = async (taskSid: string, summary: string): Pro
       attributeKey: 'summary',
       attributeValue: summary,
     }
-    await request('/get-summary', requestParams)
+    await request('/add-task-attribute', requestParams)
   } catch (e: any) {
     console.log(e)
     Flex.Notifications.showNotification('agentTimelineError', {msg: `Error getting events ${e.message}`})

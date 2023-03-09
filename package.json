@@ -1,11 +1,11 @@
 {
   "name": "contact-summary",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "postinstall": "flex-plugin pre-script-check",
     "start": "twilio flex:plugins:start",
-    "deploy": "twilio flex:plugins:build && twilio flex:plugins:deploy"
+    "deploy": "twilio flex:plugins:build && twilio flex:plugins:deploy --changelog 123"
   },
   "dependencies": {
     "@twilio/flex-plugin-scripts": "6.0.3",
