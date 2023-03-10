@@ -96,12 +96,10 @@ We have to deploy 2 assets:
 7. We are done! Go to https://flex.twilio.com - Once chat is ended you should see a new component with generated summary. On the right side you will also see the Interactions Timeline for the contact.
 
 ## Screenshots
-###Generated summary:
-
+### Generated summary:
 ![Generated summary](images/generated_summary.png)
 
-###Interactions timeline:
-
+### Interactions timeline:
 ![Interactions timeline](images/interactions_timeline.png)
 
 ## Demo Script
