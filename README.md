@@ -97,9 +97,11 @@ We have to deploy 2 assets:
 
 ## Screenshots
 ###Generated summary:
+
 ![Generated summary](images/generated_summary.png)
 
 ###Interactions timeline:
+
 ![Interactions timeline](images/interactions_timeline.png)
 
 ## Demo Script
